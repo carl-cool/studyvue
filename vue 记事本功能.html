@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> play Vue</title>
+    <script src="https://cdn.staticfile.net/vue/2.7.0/vue.min.js"></script>
+    <style>
+        .hong {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <input type="text" name="" v-model="mes"><button @click="jia">添加</button>
+        <h2 v-if="list.length!=0">当前事件个数：{{list.length}}</h2>
+
+        <ul>
+
+            <li v-for="(item,index) in list" :class="{hong:item.iscom}"><input type="checkbox"
+                    v-model="item.iscom">{{item.text}}
+                <span @click="del(index)">X</span>
+            </li>
+        </ul>
+        <button @click="qing" v-if="list.length!=0">清空</button>
+        <script>
+
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    mes: '',
+                    list: [
+                        { iscom: true, text: "睡觉" },
+                        { iscom: false, text: "跑步" },
+                        { iscom: false, text: "吃饭" },
+                        { iscom: false, text: "爬山" }
+                    ]
+
+                },
+                methods: {
+                    jia: function () {
+                        if (this.mes != "") {
+                            this.list.push({ iscom: false, text: this.mes }),
+                                this.mes = ""
+
+                        } else {
+                            return
+                        }
+
+                    }
+                    , del: function (index) {
+                        this.list.splice(index, 1)
+                    },
+                    qing: function () {
+                        this.list = [];
+                    }
+                }
+            })
+        </script>
+</body>
+
+</html>
